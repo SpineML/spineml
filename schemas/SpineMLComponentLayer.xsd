@@ -172,6 +172,7 @@ elementFormDefault="qualified">
        <xs:complexContent>
     		<xs:extension base="PortType">
     		    <xs:attribute name="name" type="xs:string" use="required"/>		<!-- Must refer to a state variable -->
+            <xs:attribute name="is_per_connection" type="xs:boolean" use="optional"/>    <!-- Is this per connection -->
     		</xs:extension>
     	</xs:complexContent>
     </xs:complexType>
@@ -181,6 +182,7 @@ elementFormDefault="qualified">
     		<xs:extension base="PortType">
     		    <xs:attribute name="name" type="xs:string" use="required"/>
                 <xs:attribute name="dimension" type="xs:string" use="optional"/>
+                <xs:attribute name="post" type="xs:boolean" use="optional"/><!-- Is this a post synaptic reduction -->
     		</xs:extension>
     	</xs:complexContent>
     </xs:complexType>
@@ -190,7 +192,8 @@ elementFormDefault="qualified">
     		<xs:extension base="PortType">
     		    <xs:attribute name="name" type="xs:string"  use="required"/>
     			<xs:attribute name="reduce_op" type="analog_port_reduction_type" use="required"/>
-                <xs:attribute name="dimension" type="xs:string" use="optional"/>
+          <xs:attribute name="dimension" type="xs:string" use="optional"/>
+          <xs:attribute name="post" type="xs:boolean" use="optional"/> <!-- Is this a post synaptic reduction -->
     		</xs:extension>
     	</xs:complexContent>
     </xs:complexType>
@@ -216,6 +219,7 @@ elementFormDefault="qualified">
        <xs:complexContent>
         <xs:extension base="PortType">
           <xs:attribute name="name" type="xs:string" use="required"/>
+          <xs:attribute name="is_per_connection" type="xs:boolean" use="optional"/> <!-- Is this per connection -->
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -225,6 +229,7 @@ elementFormDefault="qualified">
         <xs:extension base="PortType">
           <xs:attribute name="name" type="xs:string" use="required"/>
           <xs:attribute name="dimension" type="xs:string" use="optional"/>
+          <xs:attribute name="post" type="xs:boolean" use="optional"/> <!-- Is this a post synaptic reduction -->
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -238,7 +243,7 @@ elementFormDefault="qualified">
     		</xs:choice>
     	</xs:sequence>
     	<xs:attribute name="name" type="xs:string" use="required"/>
-    	<xs:attribute name="type" type="component_class_type" use="optional"/>
+      <xs:attribute name="type" type="component_class_type" use="optional"/>
     </xs:complexType>
     
     <xs:complexType name="DynamicsType">

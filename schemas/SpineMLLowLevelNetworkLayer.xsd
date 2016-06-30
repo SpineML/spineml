@@ -14,7 +14,7 @@
   <xs:element name="SpineML" type="SpineMLType">
     <!-- Keyrefs for general Component name referencing -->
     <xs:key name="input_source_key">
-      <xs:selector xpath=".//LNET:Group|.//LNET:Population/LNET:Neuron"></xs:selector>
+      <xs:selector xpath=".//LNET:Group|.//LNET:Population/LNET:Neuron|.//LNET:Population/LNET:Projection/LNET:Synapse/LNET:WeightUpdate|.//LNET:Population/LNET:Projection/LNET:Synapse/LNET:PostSynapse"></xs:selector>
       <xs:field xpath="@name"></xs:field>
     </xs:key>
     <xs:keyref name="component_input_source" refer="input_source_key">
@@ -150,6 +150,7 @@
 
   <xs:complexType name="ProjectionType">
     <xs:sequence>
+      <xs:element ref="Annotation" minOccurs="0"></xs:element>
       <xs:element ref="Synapse" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="dst_population" type="xs:string" use="required"/> <!-- Must reference a Population (Neuron) name -->
@@ -167,7 +168,7 @@
   <xs:complexType name="AnnotationType">
     <!-- Annotations can have any elements or attrbutes -->
     <xs:sequence>
-      <xs:any minOccurs="0" namespace="##any" processContents="lax"/>
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax"/>
     </xs:sequence>
     <xs:anyAttribute/>
   </xs:complexType>

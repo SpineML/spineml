@@ -130,7 +130,10 @@ elementFormDefault="qualified">
     	<xs:complexContent>
     		<xs:extension base="AbstractValueType">
     			<xs:sequence>
-    				<xs:element ref="Value" maxOccurs="unbounded"></xs:element>
+            <xs:choice>
+              <xs:element ref="Value" maxOccurs="unbounded"></xs:element>
+              <xs:element ref="BinaryFile"></xs:element>
+            </xs:choice>
     			</xs:sequence>
     		</xs:extension>
     	</xs:complexContent>
@@ -238,10 +241,12 @@ elementFormDefault="qualified">
 
   <xs:complexType name="BinaryFileType">
     <xs:attribute name="file_name" type="xs:string" use="required"/>
-    <xs:attribute name="num_connections" type="xs:integer" use="required"/>
-    <xs:attribute name="explicit_delay_flag" type="xs:integer" use="required"/>
-    <xs:attribute name="packed_data" type="xs:boolean" use="required"/>
+    <xs:attribute name="num_connections" type="xs:integer" use="optional"/>
+    <xs:attribute name="num_elements" type="xs:integer" use="optional"/>
+    <xs:attribute name="explicit_delay_flag" type="xs:integer" use="optional"/>
+    <xs:attribute name="packed_data" type="xs:boolean" use="optional"/>
   </xs:complexType>
+
     
     <xs:complexType name="DelayType">
     	<xs:sequence>
@@ -326,7 +331,7 @@ elementFormDefault="qualified">
     <xs:complexType name="AnnotationType">
       <!-- Annotations can have any elements or attrbutes -->
       <xs:sequence>
-        <xs:any minOccurs="0" namespace="##any" processContents="lax"/>
+        <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax"/>
       </xs:sequence>
       <xs:anyAttribute/>
     </xs:complexType>
