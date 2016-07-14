@@ -2,4 +2,4 @@
 
 This repository contains the main SpineML schemas which govern the SpineML modelling syntax.
 
-A number of example models are provided. Some of these have [SpineCreator](https://github.com/SpineML/SpineCreator) project.
+A number of example models are provided. Some of these have [SpineCreator](https://github.com/SpineML/SpineCreator) project files, meaning that they can be loaded and viewed in SpineCreator.
