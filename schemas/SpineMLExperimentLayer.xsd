@@ -216,6 +216,7 @@ elementFormDefault="qualified">
 		<xs:attribute name="target" type="xs:string" use="required"></xs:attribute> <!-- Must be a neuron, synapse, postsynapse or component_instance name from the UL-->
 		<xs:attribute name="port" type="xs:string" use="required"></xs:attribute>
 		<xs:attribute name="start_time" type="xs:double"></xs:attribute>
+		<xs:attribute name="end_time" type="xs:double"></xs:attribute>
 		<xs:attribute name="duration" type="xs:double"></xs:attribute>
 		<xs:attribute name="indices" type="uint_array"></xs:attribute> <!-- If not specified then all are ussumed -->
     </xs:complexType>
