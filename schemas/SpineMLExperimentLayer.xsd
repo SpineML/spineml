@@ -132,9 +132,16 @@
 		<xs:attribute name="dst_population" type="xs:string" use="required"></xs:attribute>
 	</xs:complexType>
 
-	<!-- Placeholder for new delay change type -->
+	<xs:complexType name="GenericInputLesionType">
+		<xs:complexContent>
+			<xs:extension base="LesionType">
+				<xs:attribute name="src_port" type="xs:string" use="required"></xs:attribute>
+				<xs:attribute name="dst_port" type="xs:string" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="DelayChangeType" abstract="true">
-		<!-- including some of -->
 		<xs:attribute name="src_population" type="xs:string" use="required"></xs:attribute>
 		<xs:attribute name="dst_population" type="xs:string" use="required"></xs:attribute>
 		<xs:sequence>
