@@ -24,6 +24,7 @@
 	<xs:element name="RungeKuttaIntegration" type="EulerIntegrationType" substitutionGroup="AbstractIntegrationMethod"></xs:element>
 
 	<xs:element name="Lesion" type="LesionType"></xs:element>
+	<xs:element name="DelayChange" type="DelayChangeType"></xs:element>
 	<xs:element name="Configuration" type="ConfigurationType"></xs:element>
 
 	<xs:element name="AbstractInput" type="AbstractInputType"></xs:element>
@@ -130,6 +131,33 @@
 		<xs:attribute name="dst_population" type="xs:string" use="required"></xs:attribute>
 	</xs:complexType>
 
+	<!-- Placeholder for new delay change type -->
+	<xs:complexType name="DelayChangeType" abstract="true">
+		<!-- including some of -->
+		<xs:attribute name="src_population" type="xs:string" use="required"></xs:attribute>
+		<xs:attribute name="dst_population" type="xs:string" use="required"></xs:attribute>
+		<xs:sequence>
+			<xs:element ref="UL:Delay" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProjectionDelayChangeType">
+		<xs:complexContent>
+			<xs:extension base="DelayChangeType">
+				<xs:attribute name="synapse" type="xs:string" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GenericInputDelayChangeType">
+		<xs:complexContent>
+			<xs:extension base="DelayChangeType">
+				<xs:attribute name="src_port" type="xs:string" use="required"></xs:attribute>
+				<xs:attribute name="dst_port" type="xs:string" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ConfigurationType">
 		<xs:sequence>
 			<xs:element ref="UL:Property" maxOccurs="unbounded"></xs:element>
@@ -139,12 +167,12 @@
 
 	<xs:complexType name="AbstractInputType" abstract="true">
 		<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
-		<xs:attribute name="target" type="xs:string" use="required"></xs:attribute> <!-- Must be a neuron, synapse, postsynapse or component_instance name from the UL-->
+		<xs:attribute name="target" type="xs:string" use="required"></xs:attribute>	<!-- Must be a neuron, synapse, postsynapse or component_instance name from the UL-->
 		<xs:attribute name="target_indices" type="uint_array"></xs:attribute>
 		<xs:attribute name="port" type="xs:string" use="required"></xs:attribute>
 		<xs:attribute name="start_time" type="xs:double"></xs:attribute>
 		<xs:attribute name="duration" type="xs:double"></xs:attribute>
-		<xs:attribute name="rate_based_distribution" type="distribution"></xs:attribute> <!-- If specified input is event based otherwise it is analog -->
+		<xs:attribute name="rate_based_distribution" type="distribution"></xs:attribute>	<!-- If specified input is event based otherwise it is analog -->
 	</xs:complexType>
 
 	<xs:complexType name="TimeVaryingInputType">
