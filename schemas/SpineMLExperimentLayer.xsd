@@ -144,7 +144,7 @@
 	<xs:complexType name="ProjectionDelayChangeType">
 		<xs:complexContent>
 			<xs:extension base="DelayChangeType">
-				<xs:attribute name="synapse" type="xs:string" use="required"></xs:attribute>
+				<xs:attribute name="synapse" type="xs:int" use="required"></xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
