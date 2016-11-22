@@ -95,6 +95,7 @@
 			<xs:choice maxOccurs="unbounded" minOccurs="0">
 				<xs:element ref="Lesion"></xs:element>
 				<xs:element ref="Configuration"></xs:element>
+				<xs:element ref="DelayChange"></xs:element> <!-- DelayChange is abstract, so this means as many GenericINputDelayChange or ProjectionDelayChange elements as required -->
 			</xs:choice>
 		</xs:sequence>
 		<xs:attribute name="network_layer_url" type="xs:string"  use="required"></xs:attribute>
