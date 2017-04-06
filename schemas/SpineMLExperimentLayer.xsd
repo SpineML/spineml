@@ -134,12 +134,13 @@
 		<xs:attribute name="dst_population" type="xs:string" use="required"></xs:attribute>
 	</xs:complexType>
 
-	<!-- Not inherited from LesionType, because the src and dst of
-	     a generic input do not need to be populations. If
+	<!-- *Not* inherited from LesionType, because the src and dst
+	     of a generic input do not need to be populations. If
 	     src_population and dst_population in LesionType were
 	     named src and dst, then this would be derived from
-	     LesionType. Existing models would be broken by such a
-	     change. -->
+	     LesionType. However, existing models would be broken by
+	     such a change so I simply defined a new type for lesions
+	     of generic inputs. -->
 	<xs:complexType name="GenericInputLesionType">
 		<xs:attribute name="src" type="xs:string" use="required"></xs:attribute>
 		<xs:attribute name="dst" type="xs:string" use="required"></xs:attribute>
