@@ -24,6 +24,8 @@
 	<xs:element name="RungeKuttaIntegration" type="EulerIntegrationType" substitutionGroup="AbstractIntegrationMethod"></xs:element>
 
 	<xs:element name="Lesion" type="LesionType"></xs:element>
+	<xs:element name="GenericInputLesion" type="GenericInputLesionType"></xs:element>
+	<xs:element name="DelayChange" type="DelayChangeType"></xs:element>
 	<xs:element name="Configuration" type="ConfigurationType"></xs:element>
 
 	<xs:element name="AbstractInput" type="AbstractInputType"></xs:element>
@@ -93,7 +95,9 @@
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded" minOccurs="0">
 				<xs:element ref="Lesion"></xs:element>
+				<xs:element ref="GenericInputLesion"></xs:element>
 				<xs:element ref="Configuration"></xs:element>
+				<xs:element ref="DelayChange"></xs:element> <!-- DelayChange is abstract, so this means as many GenericINputDelayChange or ProjectionDelayChange elements as required -->
 			</xs:choice>
 		</xs:sequence>
 		<xs:attribute name="network_layer_url" type="xs:string"  use="required"></xs:attribute>
@@ -130,6 +134,45 @@
 		<xs:attribute name="dst_population" type="xs:string" use="required"></xs:attribute>
 	</xs:complexType>
 
+	<!-- *Not* inherited from LesionType, because the src and dst
+	     of a generic input do not need to be populations. If
+	     src_population and dst_population in LesionType were
+	     named src and dst, then this would be derived from
+	     LesionType. However, existing models would be broken by
+	     such a change so I simply defined a new type for lesions
+	     of generic inputs. -->
+	<xs:complexType name="GenericInputLesionType">
+		<xs:attribute name="src" type="xs:string" use="required"></xs:attribute>
+		<xs:attribute name="dst" type="xs:string" use="required"></xs:attribute>
+		<xs:attribute name="src_port" type="xs:string" use="required"></xs:attribute>
+		<xs:attribute name="dst_port" type="xs:string" use="required"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="DelayChangeType" abstract="true">
+		<xs:attribute name="src" type="xs:string" use="required"></xs:attribute> <!-- source population or componentObject -->
+		<xs:attribute name="dst" type="xs:string" use="required"></xs:attribute>
+		<xs:sequence>
+			<xs:element ref="UL:Delay" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProjectionDelayChangeType">
+		<xs:complexContent>
+			<xs:extension base="DelayChangeType">
+				<xs:attribute name="synapse" type="xs:int" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GenericInputDelayChangeType">
+		<xs:complexContent>
+			<xs:extension base="DelayChangeType">
+				<xs:attribute name="src_port" type="xs:string" use="required"></xs:attribute>
+				<xs:attribute name="dst_port" type="xs:string" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ConfigurationType">
 		<xs:sequence>
 			<xs:element ref="UL:Property" maxOccurs="unbounded"></xs:element>
@@ -139,12 +182,12 @@
 
 	<xs:complexType name="AbstractInputType" abstract="true">
 		<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
-		<xs:attribute name="target" type="xs:string" use="required"></xs:attribute> <!-- Must be a neuron, synapse, postsynapse or component_instance name from the UL-->
+		<xs:attribute name="target" type="xs:string" use="required"></xs:attribute>	<!-- Must be a neuron, synapse, postsynapse or component_instance name from the UL-->
 		<xs:attribute name="target_indices" type="uint_array"></xs:attribute>
 		<xs:attribute name="port" type="xs:string" use="required"></xs:attribute>
 		<xs:attribute name="start_time" type="xs:double"></xs:attribute>
 		<xs:attribute name="duration" type="xs:double"></xs:attribute>
-		<xs:attribute name="rate_based_distribution" type="distribution"></xs:attribute> <!-- If specified input is event based otherwise it is analog -->
+		<xs:attribute name="rate_based_distribution" type="distribution"></xs:attribute>	<!-- If specified input is event based otherwise it is analog -->
 	</xs:complexType>
 
 	<xs:complexType name="TimeVaryingInputType">
